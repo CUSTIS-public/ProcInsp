@@ -2,3 +2,8 @@ Web application to check running processes on windows machines. Allows to get in
 
 Known limitations:
 * Can only inspect processes of same bitness as running web api server
+
+Repository structure:
+* ProcInsp - web application and api's
+* ProcInsp.Tests - tests
+* Other projects are just for testing purposes
