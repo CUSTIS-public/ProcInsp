@@ -8,5 +8,10 @@ Repository structure:
 * ProcInsp.Tests - tests
 * Other projects are just for testing purposes
 
-Versioning
+Publish
 * Change version in globalConfig.js
+* Run:
+** dotnet publish ProcInsp\ProcInsp.csproj
+** npm run zip
+* Upload ProcInsp.zip to GitHub
+* Set tag 

@@ -1,0 +1,23 @@
+{
+  "name": "procinsp",
+  "version": "1.0.0",
+  "description": "Web application to check running processes on windows machines. Allows to get information from multiple servers. Allows to watch thread stacks of running CLR processes. Allows to watch current executing requests on w3wp workers.",
+  "main": "index.js",
+  "devDependencies": {
+    "cross-zip-cli": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zip": "cross-zip ./ProcInsp/bin/Debug/netcoreapp3.1/publish/ ProcInsp.zip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CUSTIS-public/ProcInsp.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CUSTIS-public/ProcInsp/issues"
+  },
+  "homepage": "https://github.com/CUSTIS-public/ProcInsp#readme"
+}
