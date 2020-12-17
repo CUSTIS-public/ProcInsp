@@ -8,10 +8,21 @@ Repository structure:
 * ProcInsp.Tests - tests
 * Other projects are just for testing purposes
 
+Run
+* You can run application from VS Code (F5)
+* Or dotnet run .ProcInsp/ProcInsp.csporj
+
 Publish
 * Change version in globalConfig.js
 * Run:
-** dotnet publish ProcInsp\ProcInsp.csproj
-** npm run zip
-* Upload ProcInsp.zip to GitHub
-* Set tag 
+  * dotnet publish ProcInsp\ProcInsp.csproj
+  * npm run zip
+* Create new release at GitHub
+
+Deploy
+* Prerequsites
+  * IIS and dotnet core 3.1 installed
+* Download latest release from https://github.com/CUSTIS-public/ProcInsp/releases
+* Unzip
+* Change config in \ClientApp\build\config.js (all available settings are described in https://github.com/CUSTIS-public/ProcInsp/blob/main/ProcInsp/ClientApp/src/globals.d.ts
+* Deploy to IIS (apppool should be managed by admin user)
