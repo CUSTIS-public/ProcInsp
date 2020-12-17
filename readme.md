@@ -1,4 +1,4 @@
-Web application to check running processes on windows machines. Allows to get information from multiple servers. Allows to watch thread stacks of running CLR processes. Allows to watch current executing requests on w3wp workers.
+Web application to check running processes on windows machines. Shows list of running processes. Allows to get information from multiple servers. Allows to watch thread stacks of running CLR processes. Allows to watch current executing requests on w3wp workers.
 
 # Servers and procs #
 
