@@ -116,6 +116,7 @@ namespace ProcInsp.Tests
         }
 
         [Test]
+        [Category("Windows")]
         public void GetThreadSize_RunningThread()
         {
             //Arrange

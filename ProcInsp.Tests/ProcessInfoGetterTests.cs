@@ -6,6 +6,7 @@ using ProcInsp.Services;
 
 namespace ProcInsp.Tests
 {
+    [Category("Windows")]
     public class ProcessInfoGetterTests
     {
         [Test]
