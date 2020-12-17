@@ -7,3 +7,6 @@ Repository structure:
 * ProcInsp - web application and api's
 * ProcInsp.Tests - tests
 * Other projects are just for testing purposes
+
+Versioning
+* Change version in globalConfig.js
