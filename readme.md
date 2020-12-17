@@ -1,5 +1,11 @@
 Web application to check running processes on windows machines. Allows to get information from multiple servers. Allows to watch thread stacks of running CLR processes. Allows to watch current executing requests on w3wp workers.
 
+|![Processes](img/Procs.png)|
+-
+
+|![Threads](img/Threads.png)|
+-
+
 # Known limitations #
 * Can only inspect processes of same bitness as running web api server
 
