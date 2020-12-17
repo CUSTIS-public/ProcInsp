@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build .\ProcInsp\ProcInsp.csproj --no-restore
+      run: dotnet build ./ProcInsp/ProcInsp.csproj --no-restore
     - name: Test
-      run: dotnet test .\ProcInsp.Tests\ProcInsp.Tests.csproj --filter TestCategory!=Windows --verbosity normal
+      run: dotnet test ./ProcInsp.Tests/ProcInsp.Tests.csproj --filter TestCategory!=Windows --verbosity normal
