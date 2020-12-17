@@ -32,7 +32,7 @@ namespace ProcInsp.Tests
             var getter = new ProcessInfoGetter();
 
             //Act
-            var infos = getter.GetUsage().Result.ToArray();
+            var infos = getter.GetUsage().ToArray();
 
             //Assert
             Assert.That(infos, Has.Length.AtLeast(1));

@@ -1,4 +1,5 @@
 interface ConfigType {
+    Version: string, //ProcInsp version
     InspServers: { [key: string]: string } //Servers to retrieve information from [serverName] = "webApiUrl"
     IisProcs: string[], //Proc names that should be displayed when "Only IIS" option is checked
     Kibana:{

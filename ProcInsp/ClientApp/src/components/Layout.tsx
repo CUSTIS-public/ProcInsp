@@ -1,8 +1,7 @@
-import { DashboardOutlined, DashboardTwoTone } from '@ant-design/icons';
+import { DashboardTwoTone } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-import React, { Component, useState } from 'react';
-import { dropByCacheKey } from 'react-router-cache-route';
-import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useOnce } from '../utils/hooks';
 const { Header, Content, Footer } = Layout;
 
@@ -37,6 +36,6 @@ export const AppLayout = (props: AppLayoutPros) => {
         {props.children}
       </div>
     </Content>
-    <Footer style={{ textAlign: 'center', padding: '0px 25px' }}>CustIS ©2020</Footer>
+    <Footer style={{ textAlign: 'center', padding: '0px 25px' }}>CustIS ©2020 v. {Config.Version}</Footer>
   </Layout>
 }
