@@ -24,5 +24,5 @@ Deploy
   * IIS and dotnet core 3.1 installed
 * Download latest release from https://github.com/CUSTIS-public/ProcInsp/releases
 * Unzip
-* Change config in \ClientApp\build\config.js (all available settings are described in https://github.com/CUSTIS-public/ProcInsp/blob/main/ProcInsp/ClientApp/src/globals.d.ts
+* Change config in \ClientApp\build\config.js (all available settings are described in https://github.com/CUSTIS-public/ProcInsp/blob/main/ProcInsp/ClientApp/src/globals.d.ts)
 * Deploy to IIS (apppool should be managed by admin user)
