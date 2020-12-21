@@ -1,4 +1,4 @@
-Windows process explorer with web UI. Shows list of running processes on multiple servers. Allows to watch thread stacks of running CLR processes. Allows to watch current executing requests on w3wp workers.
+ProcInsp is windows process explorer with web UI. Shows list of running processes on multiple servers. Allows to watch thread stacks of running CLR processes. Allows to watch current executing requests on w3wp workers.
 
 # Servers and procs #
 
