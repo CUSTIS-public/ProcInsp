@@ -36,8 +36,10 @@ const ServersAndProcs = (props: ServersAndProcs) => {
         props.onLocationChanged(params)
     }, [servers, onlyIis])
 
-    useOnce(() => {
-        document.title = `ProcInsp`
+    useEffect(() => {
+        if (document.title !== 'ProcInsp') {
+            document.title = `ProcInsp`
+        }
     })
 
     return <div style={{ height: '100%' }}>
