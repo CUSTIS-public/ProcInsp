@@ -2,7 +2,7 @@ ProcInsp is windows process and stack explorer with web UI. ProcInsp shows list 
 
 # Servers and procs #
 
-<kbd><img src="https://raw.githubusercontent.com/CUSTIS-public/ProcInsp/main/img/Procs.png" /></kbd>
+![Servers and processes info](./img/Procs.png)
 
 ## Features ##
 
@@ -13,16 +13,23 @@ ProcInsp is windows process and stack explorer with web UI. ProcInsp shows list 
 
 # Threads and requests #
 
-<kbd><img src="https://raw.githubusercontent.com/CUSTIS-public/ProcInsp/main/img/Threads.png" /></kbd>
+![Threads and requests info](./img/Threads.png)
 
 ## Features ##
 
 * Displays currently running requests (only for IIS processes)
 * Displays all running threads of process
-* User can view stacktrace of each thread 
-* Highlight app's entry point in stacktrace (which frame should be considered as entry point is configurable)
+* App's entry point in stacktrace is shown as thread's name (which frame should be considered as entry point is configurable)
 * If exception in thread occured, exception info is displayed (exception type, message and stacktrace)
 * Kibana integration - user can view logs of desired thread (logs are filtered by host name, process and thread ids; Kibana url in configurable)
+
+# Stacktrace #
+
+![Stacktrace info](./img/Stacktrace.png)
+
+## Features ##
+
+* Highlight app's entry point in stacktrace (which frame should be considered as entry point is configurable)
 
 # Known limitations #
 * Can only inspect processes of same bitness as running web api server
