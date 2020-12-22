@@ -20,6 +20,7 @@ ProcInsp is windows process explorer with web UI. Shows list of running processe
 * Displays currently running requests (only for IIS processes)
 * Displays all running threads of process
 * User can view stacktrace of each thread 
+* Highlight app's entry point in stacktrace (which frame should be considered as entry point is configurable)
 * If exception in thread occured, exception info is displayed (exception type, message and stacktrace)
 * Kibana integration - user can view logs of desired thread (logs are filtered by host name, process and thread ids; Kibana url in configurable)
 
