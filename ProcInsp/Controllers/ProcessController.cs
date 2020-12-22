@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
+using System.Runtime.Intrinsics.X86;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,10 @@ using ProcInsp.Threads;
 
 namespace ProcInsp.Controllers
 {
+    /// <summary>
+    /// Information about machine, processes and threads
+    /// </summary>
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class ProcessController : ControllerBase
@@ -32,18 +37,28 @@ namespace ProcInsp.Controllers
 
         #region Process
 
+        /// <summary>
+        /// Get the list of running processes
+        /// </summary>
         [HttpGet]
         public IEnumerable<ProcInfo> Get()
         {
             return _processInfoGetter.GetInfos();
         }
 
+        /// <summary>
+        /// Get information about specific process
+        /// </summary>
+        /// <param name="pid">Process ID</param>
         [HttpGet("{pid}")]
         public ProcInfo Get(int pid)
         {
             return ProcessInfoGetter.GetInfo(pid);
         }
 
+        /// <summary>
+        /// Get resource usages (CPU/RAM) by processes
+        /// </summary>
         [HttpGet("usage")]
         public IEnumerable<UsageInfo> GetUsage()
         {
@@ -54,6 +69,9 @@ namespace ProcInsp.Controllers
 
         #region Machine
 
+        /// <summary>
+        /// Get total resource usage (CPU/RAM) on machine
+        /// </summary>
         [HttpGet("machine")]
         public MachineInfo GetMachine()
         {
@@ -64,6 +82,10 @@ namespace ProcInsp.Controllers
 
         #region Threads
 
+        /// <summary>
+        /// Get threads of CLR process
+        /// </summary>
+        /// <param name="pid">Process ID</param>
         [HttpGet("{pid}/threads")]
         public IEnumerable<ThreadInfo> GetThreads(int pid)
         {
@@ -138,6 +160,10 @@ namespace ProcInsp.Controllers
             return infos;
         }
 
+        /// <summary>
+        /// Calculate threads' sizes of CLR process (WARNING: doesn't work correct)
+        /// </summary>
+        /// <param name="pid">Process ID</param>
         [HttpGet("{pid}/threadSizes")]
         public IEnumerable<ThreadSizeInfo> GetThreadSizes(int pid)
         {
@@ -177,6 +203,10 @@ namespace ProcInsp.Controllers
 
         #region Requests
 
+        /// <summary>
+        /// Get web-requests serving by specific process. Works only if process is w3wp worker (IIS AppPool)
+        /// </summary>
+        /// <param name="pid">Process ID</param>
         [HttpGet("{pid}/requests")]
         public IEnumerable<RequestInfo> GetRequests(int pid)
         {
