@@ -1,4 +1,4 @@
-ProcInsp is windows process explorer with web UI. Shows list of running processes on multiple (remote) servers. Allows to watch thread stacks of running CLR processes. Allows to watch current executing requests on w3wp workers.
+ProcInsp is windows process and stack explorer with web UI. ProcInsp shows list of running processes on multiple (remote) servers. You can drill down into the CLR-process and watch running threads with their stacktraces. ProcInsp also allows to watch current executing requests on IIS AppPools (w3wp workers).
 
 # Servers and procs #
 
