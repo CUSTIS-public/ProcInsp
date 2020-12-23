@@ -32,7 +32,7 @@ ProcInsp is windows process and stack explorer with web UI. ProcInsp shows list 
 * Highlight app's entry point in stacktrace (which frame should be considered as entry point is configurable)
 
 # Known limitations #
-* Can only inspect processes of same bitness as running web api server
+* Can only show threads and stacktraces of CLR processes with the same bitness as running web api server
 
 # Repository structure #
 * ProcInsp - web application and api's
