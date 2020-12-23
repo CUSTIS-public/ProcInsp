@@ -31,6 +31,21 @@ ProcInsp is windows process and stack explorer with web UI. ProcInsp shows list 
 
 * Highlight app's entry point in stacktrace (which frame should be considered as entry point is configurable)
 
+# API #
+ProcInsp has public API, which returns results in JSON.
+
+| Verb | URL | Description |
+|-|-|-|
+| GET | /Process | Get the list of running processes |
+| GET | /Process/{pid} | Get information about specific process |
+| GET | /Process/usage | Get resource usages (CPU/RAM) by processes |
+| GET | /Process/machine | Get total resource usage (CPU/RAM) on machine |
+| GET | /Process/{pid}/threads | Get threads of CLR process |
+| GET | /Process/{pid}/threadSizes | Calculate threads' sizes of CLR process (WARNING: doesn't work correct) |
+| GET | /Process/{pid}/requests | Get web-requests serving by specific process. Works only if process is w3wp worker (IIS AppPool) |
+
+Full documentation is available at /swagger/index.html (after app is started).
+
 # Known limitations #
 * Can only show threads and stacktraces of CLR processes with the same bitness as running web api server
 
