@@ -8,7 +8,7 @@ interface ConfigType {
     },
     Entrypoint: {
         Contains: string[], //Entrypoint must contain one of these strings (ignore case)
-        NotContains: string[] //Entrypoint must not contain no one ot these string (ignore case)
+        NotContains: string[] //Entrypoint must not contain no one of these string (ignore case)
     },
     Requests: { // config for Requests.tsx
         UrlInfo: RegExp //regexp to get main info from url
