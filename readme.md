@@ -47,7 +47,8 @@ ProcInsp has public API, which returns results in JSON.
 Full documentation is available at /swagger/index.html (after app is started).
 
 # Known limitations #
-* Can only show threads and stacktraces of CLR processes with the same bitness as running web api server
+* Shows threads and stacktraces only for CLR processes with the same bitness as running web api server
+* Shows only thread IDs and some other basic info for non CLR processes
 
 # Repository structure #
 * ProcInsp - web application and api's
@@ -60,8 +61,9 @@ Full documentation is available at /swagger/index.html (after app is started).
 
 # Publish #
 * Change version in globalConfig.js
-* Run:
+* Run from git root directory:
   * dotnet publish ProcInsp\ProcInsp.csproj
+  * npm i
   * npm run zip
 * Create new release at GitHub
 
