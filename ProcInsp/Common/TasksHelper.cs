@@ -7,6 +7,7 @@ namespace ProcInsp.Common
     public class TasksHelper
     {
         public const int WaitTime = 10_000;
+        private const string WaitTimeExceededMsg = "Wait time exceeded";
 
         public static Task DoWithInterrupt(Action action, CancellationToken token)
         {
@@ -30,14 +31,21 @@ namespace ProcInsp.Common
         public static T DoWithInterrupt<T>(Func<T> f, CancellationToken? token = null)
         {
             using var tokenSource = new CancellationTokenSource();
-            token = token == null ? tokenSource.Token : token;
+            token ??= tokenSource.Token;
 
-            T result = default(T);
+            var result = default(T);
             var t = DoWithInterrupt(() => { result = f(); }, token.Value);
             tokenSource.CancelAfter(WaitTime);
-            if (!t.Wait(WaitTime))
+            try
             {
-                throw new Exception("Wait time exceeded");
+                if (!t.Wait(WaitTime))
+                {
+                    throw new Exception(WaitTimeExceededMsg);
+                }
+            }
+            catch (AggregateException e) when (e.InnerException is ThreadInterruptedException)
+            {
+                throw new Exception(WaitTimeExceededMsg);
             }
             return result;
         }
