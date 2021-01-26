@@ -123,7 +123,15 @@ async function fetchUrl(key: string, url: string, signal: AbortSignal, oldData: 
         let data = await resp.json();
 
         if (!isIterable(data)) {
-            data = [data]
+            if(data.errorMessage) {
+                message.error(data.errorMessage);
+            }
+    
+            if(data.infos) {
+                data = isIterable(data.infos) ? data.infos : [data.infos]
+            } else {
+                data = [data]
+            }
         }
 
         let add = [];

@@ -25,7 +25,7 @@ interface ThreadsProps {
 const Threads = (props: ThreadsProps) => {
     const [gridApi, setGridApi] = useState<GridApi>();
     const [columnApi, setGridColumnApi] = useState<ColumnApi>();
-    const { loading, refresh } = useGridRefresh();
+    const { loading, refresh, data } = useGridRefresh();
     const loadingRef = useRef(loading)
     loadingRef.current = loading;
     const [loadingSize, setloadingSize] = useState(true)
@@ -50,11 +50,17 @@ const Threads = (props: ThreadsProps) => {
             setloadingSize(true);
             const resp = await fetch(url)
             const data = await resp.json();
+
+            if(data.errorMessage) {
+                message.error(data.errorMessage)
+                return;
+            }
+            
             while (loadingRef.current) {
                 await delay(100);
             }
             let updated = [];
-            for (let size of data) {
+            for (let size of data.infos) {
                 let row = gridApi?.getRowNode(`${size.id}`);
                 if (row) {
                     updated.push({ ...row.data, heapSize: size.heapSize })
@@ -81,8 +87,12 @@ const Threads = (props: ThreadsProps) => {
         refreshSize(gridApi)
     }
 
-    const hasStacktrace = (stacktrace: any): boolean => {
+    const hasElements = (stacktrace: any): boolean => {
         return stacktrace && Array.isArray(stacktrace) && stacktrace.length > 1
+    }
+
+    const hasStacktrace = (data: any): boolean => {
+        return hasElements(data?.stacktrace) || hasElements(data?.exception?.stacktrace)
     }
 
     useEffect(() => {
@@ -96,6 +106,19 @@ const Threads = (props: ThreadsProps) => {
     useEffect(() => {
         gridApi?.onFilterChanged();
     }, [showAll]);
+
+    useEffect(() => {
+        if(!data) {
+            return
+        }
+
+        for(let d of data){
+            if(hasStacktrace(d)) {
+                return;
+            }
+        }
+        setShowAll(true)
+    }, [data]);
 
     useEffect(() => {
         if (props.waitLoading || !gridApi || !columnApi) {
@@ -186,8 +209,7 @@ const Threads = (props: ThreadsProps) => {
 
                 isExternalFilterPresent={() => !showAllRef.current}
                 doesExternalFilterPass={(node) => {
-                    return showAllRef.current || hasStacktrace(node.data?.stacktrace) || hasStacktrace(node.data?.exception?.stacktrace)
-                        || node.data?.threadState === 'Running'
+                    return showAllRef.current || hasStacktrace(node.data) || node.data?.threadState === 'Running'
                 }}
 
                 onColumnGroupOpened={() => gridApi!.resetRowHeights()}

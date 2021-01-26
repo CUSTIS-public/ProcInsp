@@ -43,12 +43,23 @@ namespace ProcInsp.Dtos
 
         private void InitFromThread(ProcessThread thread)
         {
-            StartTime = thread.StartTime;
-            ThreadState = thread.ThreadState.ToString();
-            WaitReason = thread.ThreadState == System.Diagnostics.ThreadState.Wait
-                ? thread.WaitReason.ToString()
-                : string.Empty;
-            CpuTimeMs = thread.TotalProcessorTime.TotalMilliseconds;
+            try { StartTime = thread.StartTime; } catch  { }
+            try
+            {
+                ThreadState = thread.ThreadState.ToString();
+            } catch { }
+
+            try
+            {
+                WaitReason = thread.ThreadState == System.Diagnostics.ThreadState.Wait 
+                    ? thread.WaitReason.ToString()
+                    : string.Empty;
+            } catch { }
+
+            try 
+            {
+                CpuTimeMs = thread.TotalProcessorTime.TotalMilliseconds;
+            } catch { }
         }
 
         public double? CpuTimeMs { get; set; }

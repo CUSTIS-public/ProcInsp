@@ -35,7 +35,10 @@ namespace ProcInsp.Common
             T result = default(T);
             var t = DoWithInterrupt(() => { result = f(); }, token.Value);
             tokenSource.CancelAfter(WaitTime);
-            t.Wait(WaitTime);
+            if (!t.Wait(WaitTime))
+            {
+                throw new Exception("Wait time exceeded");
+            }
             return result;
         }
     }

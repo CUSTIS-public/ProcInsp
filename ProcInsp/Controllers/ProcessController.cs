@@ -51,9 +51,15 @@ namespace ProcInsp.Controllers
         /// </summary>
         /// <param name="pid">Process ID</param>
         [HttpGet("{pid}")]
-        public ProcInfo Get(int pid)
+        public ActionResult<ProcInfo> Get(int pid)
         {
-            return ProcessInfoGetter.GetInfo(pid);
+            var procInfo = ProcessInfoGetter.GetInfo(pid);
+            if (procInfo != null)
+            {
+                return Ok(procInfo);
+            }
+
+            return NoContent();
         }
 
         /// <summary>
@@ -87,14 +93,20 @@ namespace ProcInsp.Controllers
         /// </summary>
         /// <param name="pid">Process ID</param>
         [HttpGet("{pid}/threads")]
-        public IEnumerable<ThreadInfo> GetThreads(int pid)
+        public ThreadsResult GetThreads(int pid)
         {
+            var result = new ThreadsResult();
+
             var infos = new ConcurrentBag<ThreadInfo>();
             try
             {
                 infos = GetThreadsFromClrMd(pid);
             }
-            catch { }
+            catch (Exception e)
+            {
+                result.ErrorMessage = $"One or more errors occured while retrieving detailed info about threads: " +
+                                      $"{Environment.NewLine}{GetErrorMessage(e)}";
+            }
 
             using var tokenSource = new CancellationTokenSource();
             var token = tokenSource.Token;
@@ -123,7 +135,18 @@ namespace ProcInsp.Controllers
             }
             catch { }
 
-            return infos;
+            result.Infos = infos;
+            return result;
+        }
+
+        private string GetErrorMessage(Exception exception)
+        {
+            return exception switch
+            {
+                AggregateException aggrEx =>
+                    string.Join(Environment.NewLine, aggrEx.InnerExceptions.Select(e => e.Message)),
+                { } ex => ex.Message
+            };
         }
 
         private static ConcurrentBag<ThreadInfo> GetThreadsFromClrMd(int pid)
@@ -165,10 +188,26 @@ namespace ProcInsp.Controllers
         /// </summary>
         /// <param name="pid">Process ID</param>
         [HttpGet("{pid}/threadSizes")]
-        public IEnumerable<ThreadSizeInfo> GetThreadSizes(int pid)
+        public ThreadSizesResult GetThreadSizes(int pid)
+        {
+            try
+            {
+                return new ThreadSizesResult {Infos = GetThreadSizesInternal(pid)};
+            }
+            catch (Exception e)
+            {
+                return new ThreadSizesResult
+                {
+                    ErrorMessage = $"One or more errors occured while retrieving thread sizes: " +
+                                   $"{Environment.NewLine}{GetErrorMessage(e)}"
+                };
+            }
+        }
+
+        private IEnumerable<ThreadSizeInfo> GetThreadSizesInternal(int pid)
         {
             var infos = new ConcurrentBag<ThreadSizeInfo>();
-            
+
             using var dataTarget = ClrMdHelper.AttachToProcess(pid);
 
             var tasks = new List<Task>();
@@ -194,7 +233,9 @@ namespace ProcInsp.Controllers
             {
                 Task.WaitAll(tasks.ToArray(), TasksHelper.WaitTime);
             }
-            catch { }
+            catch
+            {
+            }
 
             return infos;
         }

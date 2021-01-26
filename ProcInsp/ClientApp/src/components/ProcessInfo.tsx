@@ -1,4 +1,4 @@
-import { Row, Col } from 'antd';
+import { Row, Col, message } from 'antd';
 import qs from 'query-string';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
@@ -30,7 +30,12 @@ const ProcessInfo = () => {
 
 
     const updateProcInfo = async () => {
+        const NoContent = 204;
         const response = await fetch(`http://${serverUrl}/Process/${pid}`);
+        if(response.status === NoContent) {
+            message.error(`No process found with ID ${pid}`)
+            return
+        }
         const data = await response.json();
         const info: ProcInfo = { ...data, appPool: getAppPool(data.cmd) };
         info.isW3wp = info.appPool ? true : false
