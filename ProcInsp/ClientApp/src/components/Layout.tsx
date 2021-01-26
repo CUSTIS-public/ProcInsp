@@ -36,6 +36,6 @@ export const AppLayout = (props: AppLayoutPros) => {
         {props.children}
       </div>
     </Content>
-    <Footer style={{ textAlign: 'center', padding: '0px 25px' }}>CustIS ©2020 v. {Config.Version}</Footer>
+    <Footer style={{ textAlign: 'center', padding: '0px 25px' }}>CustIS ©2020-2021 v. {Config.Version}</Footer>
   </Layout>
 }
