@@ -49,6 +49,7 @@ Full documentation is available at /swagger/index.html (after app is started).
 # Known limitations #
 * Shows threads and stacktraces only for CLR processes with the same bitness as running web api server
 * Shows only thread IDs and some other basic info for non CLR processes
+* Web-requests are shown only for IIS web server
 
 # Repository structure #
 * ProcInsp - web application and api's
